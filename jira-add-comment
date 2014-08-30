@@ -1,0 +1,57 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use autodie;
+use JIRA::REST;
+use File::Slurp qw< slurp >;
+use Net::Netrc;
+use YAML;
+use Data::Dumper;
+
+die "Usage: jira-add-comment ISSUE\n" unless @ARGV;
+
+my $wanted = shift; # DOC-1123
+
+my $server = 'https://jira.corp.appnexus.com';
+my $credentials = Net::Netrc->lookup( $server );
+my $username = $credentials->login;
+my $password = $credentials->password;
+
+# Pop open a temp file in $EDITOR.
+
+my $tmpdir = $ENV{TMPDIR};
+my $tmpfile = "jira-add-comment-$$.txt";
+my $tmp_path = $tmpdir . $tmpfile;
+
+my $editor = $ENV{EDITOR};
+system qq{$editor $tmp_path};
+# error check result of editor call here?
+my $comment = slurp $tmp_path;
+
+# PUT the results back up to the server.
+
+# To add a comment:
+# { "update": { "comment": [ {"add" : { "body" : "This is the text of your awesome comment!" } } ] } }
+
+my $jira = JIRA::REST->new( $server, $username, $password );
+
+my $payload = 
+{ update => { comment => [ { add => { body => $comment } }, ] } };
+
+# PATH, QUERY, VALUE, [ HEADERS ]
+my $issue = $jira->PUT( "/issue/$wanted", undef, $payload );
+
+print Dump $issue;
+
+__END__
+
+This should:
+
+1. Pop open a temp file in $EDITOR
+
+2. When $EDITOR saves and quits, PUT the comment to the issue
+
+3. ???
+
+4. Profit!!!1!

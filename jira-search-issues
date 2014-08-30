@@ -1,0 +1,26 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use JIRA::REST;
+use JSON;
+use Net::Netrc;
+use YAML;
+use Data::Dumper;
+
+die "Usage: jira-search-issues JQL\n" unless @ARGV;
+
+my $JQL = shift; # "assignee = rloveland AND status not in (Resolved, Closed)"
+
+my $server = 'https://jira.corp.appnexus.com';
+my $credentials = Net::Netrc->lookup( $server );
+my $username = $credentials->login;
+my $password = $credentials->password;
+
+my $jira = JIRA::REST->new( $server, $username, $password );
+
+my $search = $jira->POST( "/search", undef, { jql => $JQL , startAt => 0, maxResults => 100, fields => [ qw/ key summary description / ], } );
+
+for my $issue ( @{$search->{issues}} ) {
+  print Dump $issue;
+}

@@ -1,0 +1,40 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use autodie;
+use JIRA::REST;
+use File::Slurp qw< slurp >;
+use Net::Netrc;
+use YAML;
+use Data::Dumper;
+
+die "Usage: jira-set-issue-status ISSUE STATUS_ID (11: 'Start Progress', 141: 'Start Code Review', 151: 'Test', 161: 'Blocked', 171: 'Close' \n" unless @ARGV == 2;
+
+my ($wanted, $status) = @ARGV;
+
+my $server = 'https://jira.corp.appnexus.com';
+my $credentials = Net::Netrc->lookup( $server );
+my $username = $credentials->login;
+my $password = $credentials->password;
+
+my $jira = JIRA::REST->new( $server, $username, $password );
+
+my $payload = { transition => { id => $status } };
+
+# PATH, QUERY, VALUE, [ HEADERS ]
+my $issue = $jira->POST( "/issue/$wanted/transitions", undef, $payload );
+
+print Dump $issue;
+
+__END__
+
+This should:
+
+1. Pop open a temp file in $EDITOR
+
+2. When $EDITOR saves and quits, PUT the comment to the issue
+
+3. ???
+
+4. Profit!!!1!
