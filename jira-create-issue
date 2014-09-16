@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use JIRA::REST;
+use Net::Netrc;
+use YAML;
+use Data::Dumper;
+use File::Slurp qw< slurp >;
+
+die "Usage: jira-create-issue PROJECT SUMMARY\n" unless @ARGV == 2;
+
+my ($project, $summary) = @ARGV; # DOC "Can't understand this page"
+my $DEBUG = 0;
+print "PROJECT: $project\nSUMMARY: $summary\n" if $DEBUG;
+
+my $server = 'https://jira.corp.appnexus.com';
+my $credentials = Net::Netrc->lookup( $server );
+my $username = $credentials->login;
+my $password = $credentials->password;
+
+# Pop open a temp file in $EDITOR for the description.
+
+my $tmpdir = $ENV{TMPDIR};
+my $tmpfile = "jira-create-issue-$project-$$.txt";
+my $tmp_path = $tmpdir . $tmpfile;
+
+my $editor = $ENV{EDITOR};
+system qq{$editor $tmp_path};
+# error check result of editor call here?
+my $description = slurp $tmp_path;
+
+print "DESCRIPTION: $description\n" if $DEBUG;
+
+my $jira = JIRA::REST->new( $server, $username, $password );
+
+my $issue = $jira->POST( "/issue", undef,
+			 {
+			  fields => {
+				     project => { key => "$project" }, # DOC or PF, likely
+				     issuetype => { name => "Task" }, # id => 3
+				     summary => "$summary",
+				     description => "$description",
+				     assignee => { name => "$username" },
+				    },
+			 }
+		       );
+
+print Dump $issue;		# YAML!
