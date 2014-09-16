@@ -22,5 +22,5 @@ my $jira = JIRA::REST->new( $server, $username, $password );
 my $search = $jira->POST( "/search", undef, { jql => $JQL , startAt => 0, maxResults => 100, fields => [ qw/ key summary description / ], } );
 
 for my $issue ( @{$search->{issues}} ) {
-  print Dump $issue;
+  print encode_json $issue;
 }
