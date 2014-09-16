@@ -21,7 +21,7 @@ my $password = $credentials->password;
 # Pop open a temp file in $EDITOR.
 
 my $tmpdir = $ENV{TMPDIR};
-my $tmpfile = "jira-add-comment-$$.txt";
+my $tmpfile = "jira-add-comment-$wanted-$$.txt";
 my $tmp_path = $tmpdir . $tmpfile;
 
 my $editor = $ENV{EDITOR};
