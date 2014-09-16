@@ -9,7 +9,21 @@ use Net::Netrc;
 use YAML;
 use Data::Dumper;
 
-die "Usage: jira-set-issue-status ISSUE STATUS_ID (11: 'Start Progress', 141: 'Start Code Review', 151: 'Test', 161: 'Blocked', 171: 'Close' \n" unless @ARGV == 2;
+my $err_text = <<"EOF";
+Usage: jira-set-issue-status ISSUE STATUS_ID
+
+Try one of these:
+
+| STATUS_ID | Meaning             |
+|-----------+---------------------|
+|        11 | 'Start Progress'    |
+|       141 | 'Start Code Review' |
+|       161 | 'Blocked'           |
+|       171 | 'Close'             |
+|       191 | 'Testing'           |
+EOF
+
+die $err_text unless @ARGV == 2;
 
 my ($wanted, $status) = @ARGV;
 
