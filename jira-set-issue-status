@@ -21,6 +21,7 @@ Try one of these:
 |       161 | 'Blocked'           |
 |       171 | 'Close'             |
 |       191 | 'Testing'           |
+|       261 | 'Resolve'           |
 EOF
 
 die $err_text unless @ARGV == 2;
