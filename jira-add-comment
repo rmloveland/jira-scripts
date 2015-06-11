@@ -6,8 +6,6 @@ use autodie;
 use JIRA::REST;
 use File::Slurp qw< slurp >;
 use Net::Netrc;
-use YAML;
-use Data::Dumper;
 
 die "Usage: jira-add-comment ISSUE\n" unless @ARGV;
 
@@ -41,8 +39,6 @@ my $payload =
 
 # PATH, QUERY, VALUE, [ HEADERS ]
 my $issue = $jira->PUT( "/issue/$wanted", undef, $payload );
-
-print Dump $issue;
 
 __END__
 

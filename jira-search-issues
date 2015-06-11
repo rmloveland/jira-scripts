@@ -5,8 +5,6 @@ use warnings;
 use JIRA::REST;
 use JSON;
 use Net::Netrc;
-use YAML;
-use Data::Dumper;
 
 die "Usage: jira-search-issues JQL\n" unless @ARGV;
 

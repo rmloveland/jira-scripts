@@ -6,8 +6,6 @@ use autodie;
 use JIRA::REST;
 use File::Slurp qw< slurp >;
 use Net::Netrc;
-use YAML;
-use Data::Dumper;
 
 my $err_text = <<"EOF";
 Usage: jira-set-issue-status ISSUE STATUS_ID
@@ -39,5 +37,3 @@ my $payload = { transition => { id => $status } };
 
 # PATH, QUERY, VALUE, [ HEADERS ]
 my $issue = $jira->POST( "/issue/$wanted/transitions", undef, $payload );
-
-print Dump $issue;
