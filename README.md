@@ -16,9 +16,11 @@ Installation
 ------------
 
 1. Clone it.
-2. Fire up `cpan` (Perl's package manager) in your terminal to get [ONE LIBRARY](https://metacpan.org/pod/JIRA::REST) for interacting with JIRA.  If the `cpan` client prompts you for things, just keep hitting ENTER to accept the defaults.  Sorry about this; dynlang package managers are kinda annoying.  (If someone can show me how to distribute this as a single concatenated ball of code, I'd be happy to.  I tried [App::FatPacker](https://metacpan.org/pod/App::FatPacker) but couldn't make it work.)
+2. Fire up `cpan` (Perl's package manager) in your terminal to get [ONE LIBRARY](https://metacpan.org/pod/JIRA::REST) for interacting with JIRA.  Make sure to set the environment variables so the `cpan` client doesn't prompt you and just installs things.
 
-        $ cpan JIRA::REST
+        $ export PERL_MM_USE_DEFAULT=1
+        $ export PERL_EXTUTILS_AUTOINSTALL="--defaultdeps"
+        $ cpan -f JIRA::REST # force install
         ... stuff ...
 
 3. Make sure your JIRA credentials are in your `.netrc` file, e.g.,
