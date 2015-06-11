@@ -1,21 +1,42 @@
 README
 ======
 
-This is a collection of scripts that do stuff to JIRA.  They're
-written in Perl, but it shouldn't matter; each script has been
-"packed" as a single file with all its dependencies.  The packed
-versions of the scripts are in the `out` directory.
+This is a collection of Perl scripts that take care of my basic JIRA needs:
 
-They use your `.netrc` file for logins.  Right now they're hardcoded
-to point to `jira.corp.appnexus.com`, but that should probably be
-changed to use the .netrc.
++ Create an issue
++ Comment on the issue
++ Bump the issue's status (a.k.a., transition)
++ Close the issue (via transitions)
++ Search all the issues with JQL
 
-Here are the scripts; see below for examples of their use.
+Using these scripts, you can (probably?) completely avoid JIRA's web interface if you want.
 
-+ `jira-create-issue`
-+ `jira-add-comment`
-+ `jira-search-issues`
-+ `jira-set-issue-status`
+
+Installation
+------------
+
+1. Clone it.
+2. Fire up `cpan` (Perl's package manager) in your terminal to get [ONE LIBRARY](https://metacpan.org/pod/JIRA::REST) for interacting with JIRA.  If the `cpan` client prompts you for things, just keep hitting ENTER to accept the defaults.  Sorry about this; dynlang package managers are kinda annoying.  (If someone can show me how to distribute this as a single concatenated ball of code, I'd be happy to.  I tried [App::FatPacker](https://metacpan.org/pod/App::FatPacker) but couldn't make it work.)
+
+        $ cpan JIRA::REST
+        ... stuff ...
+
+3. Make sure your JIRA credentials are in your `.netrc` file, e.g.,
+
+        machine https://jira.corp.appnexus.com
+        login rloveland
+        password SECRET
+
+4. Link as many or as few of these as you want into your `~/bin`:
+	+ `jira-search-issues`
+	+ `jira-set-issue-status`
+	+ `jira-add-comment`
+	+ `jira-create-issue`
+
+5. To see usage info for each script, call it with no arguments:
+
+        $ jira-add-comment
+        Usage: jira-add-comment ISSUE
 
 
 Examples
