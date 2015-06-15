@@ -72,23 +72,10 @@ have `sed`):
     $ jira-search-issues "assignee = rloveland AND status not in (Closed, Resolved) ORDER BY status" \
     | jq '.key + " " + .fields.summary' | sed -e 's/\"//g';
 
-	PF-3260 Document new Bulk Create Bid screen
+	DOC-3260 Document new Foo screen
 	DOC-867 Best practices for presenting information visually
-	MS-784 Docs: Update AdTrace / Pitbull / Insight wiki page with potential gotchas
+	DOC-784 Update Insight wiki page with potential gotchas
 	MS-774 Document ANAdDelegate AdListener calls
-	DOC-1310 Web passbacks
-	DOC-1304 Data Leakage Protection (MSFT)
-	DOC-1320 SSP: Mediated Bid Optimization (Estimated CPM Revenue Type)
-	DOC-1306 Block flash creatives w/o backup images (MSFT)
-	DOC-1307 Automated Optimal Floors
-	DOC-1337 SSP: Bid \tagging\ and filtering
-	DOC-1504 New KB Article - Transactional Reporting Options
-	DOC-1259 AdX Creative Audit Status Sync
-	DOC-852 [S] Update Ad Profile Service doc to include information on retrieving by mappings
-	PDM-151 Write client-facing docs for passback
-	DOC-1659 Multiple fields removed from mobile reporting, wiki's not updated
-	DOC-457 [M] Mobile device analytics and targeting caveats
-	DOC-1627 Update all API usage examples to use https
 
 *Set an Issue's Status*
 
