@@ -105,8 +105,9 @@ ones in the help output from the script:
 	|        11 | 'Start Progress'    |
 	|       141 | 'Start Code Review' |
 	|       161 | 'Blocked'           |
-	|       171 | 'Close'             |
+	|       111 | 'Close'             |
 	|       191 | 'Testing'           |
+	|       261 | 'Resolve'           |
 
 In other words, just type something like this:
 
