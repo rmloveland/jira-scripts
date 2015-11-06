@@ -5,6 +5,7 @@ use warnings;
 use JIRA::REST;
 use Net::Netrc;
 use File::Slurp qw< slurp >;
+use Data::Dumper;
 
 die "Usage: jira-create-issue PROJECT SUMMARY\n" unless @ARGV == 2;
 
@@ -43,3 +44,5 @@ my $issue = $jira->POST( "/issue", undef,
 				    },
 			 }
 		       );
+
+print Dumper $issue;
