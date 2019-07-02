@@ -41,16 +41,22 @@ print "DESCRIPTION: $description\n" if $DEBUG;
 
 my $jira = JIRA::REST->new( $server, $username, $password );
 
-my $issue = $jira->POST( "/issue", undef,
-			 {
-			  fields => {
-				     project => { key => "$project" }, # DOC or PF, likely
-				     issuetype => { name => "Task" }, # id => 3
-				     summary => "$summary",
-				     description => "$description",
-				     assignee => { name => "$username" },
-				    },
-			 }
-		       );
+my $issue = $jira->POST(
+    "/issue", undef,
+    {
+        fields => {
+            project   => { key  => "$project" },    # DOC or PF, likely
+            issuetype => { name => "Task" },        # id => 3
+            summary   => "$summary",
+            description => "$description",
+
+            # FIXME: For some reason my Atlassian email, username, and whatever
+            # JIRA feels like accepting today (7/2/19) are different things. I
+            # just changed my username so maybe it's taking
+
+            # assignee    => { name => "$othername" },
+        },
+    }
+);
 
 print Dumper $issue;
