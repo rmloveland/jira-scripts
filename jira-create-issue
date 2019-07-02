@@ -25,7 +25,15 @@ my $tmpfile = "jira-create-issue-$project-$$.txt";
 my $tmp_path = $tmpdir . $tmpfile;
 
 my $editor = $ENV{EDITOR};
-system qq{$editor $tmp_path};
+if ( -t STDIN ) {
+    system qq{$editor $tmp_path}
+      or print STDERR "Couldn't open '$editor $tmp_path': $!\n";
+}
+else {
+    exec qq{$editor < /dev/tty $tmp_path}
+      or print STDERR "Couldn't exec '$editor $tmp_path': $!\n";
+}
+
 # error check result of editor call here?
 my $description = slurp $tmp_path;
 
