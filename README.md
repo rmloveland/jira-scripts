@@ -29,13 +29,15 @@ Installation
         login rloveland
         password SECRET
 
-4. Link as many or as few of these as you want into your `~/bin`:
+4. Set the `ATLASSIAN_SERVER` environment variable with your JIRA server's URL. (It's used by the script to avoid hard-coding the URL.)
+
+5. Link as many or as few of these as you want into your `~/bin`:
 	+ `jira-search-issues`
 	+ `jira-set-issue-status`
 	+ `jira-add-comment`
 	+ `jira-create-issue`
 
-5. To see usage info for each script, call it with no arguments:
+6. To see usage info for each script, call it with no arguments:
 
         $ jira-add-comment
         Usage: jira-add-comment ISSUE

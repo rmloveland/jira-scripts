@@ -12,10 +12,10 @@ die "Usage: jira-get-issue ISSUE\n" unless @ARGV;
 
 my $wanted = shift; # DOC-1123
 
-my $server = 'https://jira.corp.appnexus.com';
-my $credentials = Net::Netrc->lookup( $server );
-my $username = $credentials->login;
-my $password = $credentials->password;
+my $server      = $ENV{ATLASSIAN_SERVER};
+my $credentials = Net::Netrc->lookup($server);
+my $username    = $credentials->login;
+my $password    = $credentials->password;
 
 my $jira = JIRA::REST->new( $server, $username, $password );
 

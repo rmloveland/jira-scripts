@@ -10,10 +10,10 @@ die "Usage: jira-search-issues JQL\n" unless @ARGV;
 
 my $JQL = shift; # "assignee = rloveland AND status not in (Resolved, Closed)"
 
-my $server = 'https://jira.corp.appnexus.com';
-my $credentials = Net::Netrc->lookup( $server );
-my $username = $credentials->login;
-my $password = $credentials->password;
+my $server      = $ENV{ATLASSIAN_SERVER};
+my $credentials = Net::Netrc->lookup($server);
+my $username    = $credentials->login;
+my $password    = $credentials->password;
 
 my $jira = JIRA::REST->new( $server, $username, $password );
 
