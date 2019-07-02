@@ -1,0 +1,59 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use autodie;
+use JIRA::REST;
+use File::Slurp qw< slurp >;
+use Net::Netrc;
+use JSON;
+
+my $err_text = <<"EOF";
+Usage: jira-get-issue-status ISSUE
+EOF
+
+die $err_text unless @ARGV == 1;
+
+my ( $wanted, $status ) = @ARGV;
+
+my $server      = $ENV{ATLASSIAN_SERVER};
+my $credentials = Net::Netrc->lookup($server);
+my $username    = $credentials->login;
+my $password    = $credentials->password;
+
+my $jira = JIRA::REST->new( $server, $username, $password );
+
+my $issue = $jira->GET("/issue/$wanted/transitions");
+
+my $json = encode_json $issue;
+
+print $json;
+
+__END__
+
+Returns JSON with the list of allowed transitions for this issue.  For more information, see 'https://docs.atlassian.com/jira/REST/4.3.3/#id35825437'
+
+$ jira-get-issue-status RAD-932  | json_pp
+{
+   "transitions" : [
+      {
+         "id" : "121",
+         "name" : "Reopen",
+         "to" : {
+            "statusCategory" : {
+               "name" : "New",
+               "id" : 2,
+               "colorName" : "blue-gray",
+               "key" : "new",
+               "self" : "https://foo.atlassian.net/rest/api/2/statuscategory/2"
+            },
+            "iconUrl" : "https://foo.atlassian.net/images/icons/statuses/reopened.png",
+            "id" : "4",
+            "name" : "Reopened",
+            "self" : "https://foo.atlassian.net/rest/api/2/status/4",
+            "description" : "This issue was once resolved, but the resolution was deemed incorrect. From here issues are either marked assigned or resolved."
+         }
+      }
+   ],
+   "expand" : "transitions"
+}
