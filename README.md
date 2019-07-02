@@ -25,7 +25,7 @@ Installation
 
 3. Make sure your JIRA credentials are in your `.netrc` file, e.g.,
 
-        machine https://jira.corp.appnexus.com
+        machine https://foo.atlassian.net
         login rloveland
         password SECRET
 
