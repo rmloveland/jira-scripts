@@ -21,4 +21,4 @@ my $jira = JIRA::REST->new( $server, $username, $password );
 
 my $issue = $jira->GET( "/issue/$wanted" );
 
-print Dump $issue;
+print to_json( $issue, { utf8 => 1 } );
