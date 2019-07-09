@@ -11,3 +11,6 @@
 + Modify `jira-get-issue-status` so the YAML is editable in `EDITOR`
   and can be passed back to JIRA with updates of all important info:
   description, status, etc.
+
++ Consider modifying outputs to Org format (or at least adding the
+  option)
