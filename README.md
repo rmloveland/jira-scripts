@@ -16,11 +16,11 @@ Installation
 ------------
 
 1. Clone it.
-2. Fire up `cpan` (Perl's package manager) in your terminal to get [ONE LIBRARY](https://metacpan.org/pod/JIRA::REST) for interacting with JIRA.  Make sure to set the environment variables so the `cpan` client doesn't prompt you and just installs things.
+2. Fire up `cpan` (Perl's package manager) in your terminal to get [this one required library](https://metacpan.org/pod/JIRA::REST) for interacting with JIRA.  Make sure to set the environment variables shown below so the `cpan` client doesn't prompt you and just installs things.
 
         $ export PERL_MM_USE_DEFAULT=1
         $ export PERL_EXTUTILS_AUTOINSTALL="--defaultdeps"
-        $ cpan -f JIRA::REST # force install
+        $ cpan -f JIRA::REST # force install, it's probably fine
         ... stuff ...
 
 3. Make sure your JIRA credentials are in your `.netrc` file, e.g.,
